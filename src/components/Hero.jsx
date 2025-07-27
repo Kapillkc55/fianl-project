@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Download, Mail, ChevronDown } from "lucide-react";
 import "./Hero.css";
-import profileImg from "../image/download.jpeg";
+import profileImg from "https://i.postimg.cc/Vsb18HFG/Untitled-design-1.png";
 
 export default function Hero() {
   const [isHovered, setIsHovered] = useState(null);
