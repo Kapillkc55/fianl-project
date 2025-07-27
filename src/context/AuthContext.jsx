@@ -13,7 +13,6 @@ export const AuthProvider = ({ children }) => {
     const token = localStorage.getItem('token');
     if (token) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      // Verify token validity
       fetchUser();
     } else {
       setLoading(false);
@@ -22,14 +21,13 @@ export const AuthProvider = ({ children }) => {
 
   const fetchUser = async () => {
     try {
-      // Add user verification endpoint if needed
-       const response = await axios.get('https://kapilkk.onrender.com/api/auth/user');
-      
-      const { user } = response.data;
-      setUser(user);
-      setLoading(false);
+      const response = await axios.get('https://kapilkk.onrender.com/api/auth/user');
+      setUser(response.data.user);
     } catch (error) {
+      console.error('User fetch failed:', error.message);
       logout();
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -39,16 +37,16 @@ export const AuthProvider = ({ children }) => {
         email,
         password
       });
-      
+
       const { token, user } = response.data;
       localStorage.setItem('token', token);
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       setUser(user);
       return { success: true };
     } catch (error) {
-      return { 
-        success: false, 
-        message: error.response?.data?.message || 'Login failed' 
+      return {
+        success: false,
+        message: error.response?.data?.message || 'Login failed'
       };
     }
   };
@@ -68,7 +66,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={value}>
-      {children}
+      {!loading && children}
     </AuthContext.Provider>
   );
 };

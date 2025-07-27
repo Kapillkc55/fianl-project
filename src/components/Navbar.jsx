@@ -1,4 +1,3 @@
-// src/components/Navbar.jsx
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./Navbar.css";
@@ -9,7 +8,7 @@ const Navbar = () => {
   const location = useLocation();
 
   useEffect(() => {
-    setIsOpen(false); // Close menu when route changes
+    setIsOpen(false);
   }, [location]);
 
   useEffect(() => {
@@ -20,11 +19,11 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const menuItems = ['home', 'about', 'projects', 'skills', 'contact'];
+  const menuItems = ["home", "about", "projects",  "contact"];
 
   return (
     <nav className={`navbar ${scrolled ? "navbar-scrolled" : ""}`}>
-      <div className="navbar-container">
+      <div className="max-w-7xl mx-auto px-4 navbar-container">
         <div className="navbar-logo">
           <Link to="/" onClick={() => window.scrollTo(0, 0)}>
             <span className="logo-left">&lt;</span>
@@ -35,11 +34,7 @@ const Navbar = () => {
 
         <div className="navbar-desktop-menu">
           {menuItems.map((item) => (
-            <a
-              key={item}
-              href={`#${item}`}
-              className="nav-link"
-            >
+            <a key={item} href={`#${item}`} className="nav-link">
               {item.charAt(0).toUpperCase() + item.slice(1)}
             </a>
           ))}
@@ -54,12 +49,20 @@ const Navbar = () => {
 
       <div className={`mobile-menu ${isOpen ? "open" : ""}`}>
         <div className="mobile-header">
-          <Link to="/" onClick={() => { setIsOpen(false); window.scrollTo(0, 0); }}>
+          <Link
+            to="/"
+            onClick={() => {
+              setIsOpen(false);
+              window.scrollTo(0, 0);
+            }}
+          >
             <span className="logo-left">&lt;</span>
             <span className="logo-center">DevFolio</span>
             <span className="logo-right">/&gt;</span>
           </Link>
-          <button onClick={() => setIsOpen(false)} className="close-btn">✕</button>
+          <button onClick={() => setIsOpen(false)} className="close-btn">
+            ✕
+          </button>
         </div>
 
         <div className="mobile-links">

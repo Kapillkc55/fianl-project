@@ -54,7 +54,7 @@ const About = () => {
                             Contact Me
                         </a>
                         <a 
-                            href="https://github.com/yourusername" 
+                            href="https://github.com/kapilraj10" 
                             target="_blank" 
                             rel="noopener noreferrer"
                             className="btn-contact"

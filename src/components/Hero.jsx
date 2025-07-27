@@ -6,10 +6,17 @@ import profileImg from "../image/download.jpeg";
 
 export default function Hero() {
   const [isHovered, setIsHovered] = useState(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const techStack = [
     "MongoDB", "Express.js", "React", "Node.js",
     "JavaScript", "Tailwind CSS", "GitHub", "Firebase"
+  ];
+
+  const contactMethods = [
+    { name: "Email", value: "kapil@example.com" },
+    { name: "Phone", value: "+977 9876543210" },
+    { name: "LinkedIn", value: "linkedin.com/in/kapil" }
   ];
 
   return (
@@ -19,7 +26,6 @@ export default function Hero() {
 
       <div className="hero-content">
         <div className="hero-flex">
-          {/* Text Section */}
           <div className="hero-text">
             <div className="hero-status">
               <div className="pulse-dot" />
@@ -29,11 +35,12 @@ export default function Hero() {
             <h1 className="hero-title">
               Hi, I'm <span className="highlight">Kapil Raj KC</span>
             </h1>
-            <h2 className="hero-subtitle">Full Stack  Developer</h2>
+            <h2 className="hero-subtitle">Full Stack Developer</h2>
 
             <p className="hero-description">
               I'm a passionate developer from Kathmandu, Nepal with 1+ year experience.
-              I love building fast, responsive, and modern full-stack web apps.
+              I specialize in building fast, responsive, and modern full-stack web applications
+              using cutting-edge technologies.
             </p>
 
             <div className="hero-buttons">
@@ -49,28 +56,45 @@ export default function Hero() {
                 Download Resume
               </a>
 
-              <button
-                onMouseEnter={() => setIsHovered("contact")}
-                onMouseLeave={() => setIsHovered(null)}
-                className={`btn-contact ${isHovered === "contact" ? "btn-hover-contact" : ""}`}
-              >
-                <Mail className="icon" />
-                Contact Me
-              </button>
+              <div className="contact-dropdown">
+                <button
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  onMouseEnter={() => setIsHovered("contact")}
+                  onMouseLeave={() => setIsHovered(null)}
+                  className={`btn-contact ${isHovered === "contact" ? "btn-hover-contact" : ""}`}
+                >
+                  <Mail className="icon" />
+                  Contact Me
+                </button>
+                
+                {isMenuOpen && (
+                  <div className="dropdown-menu">
+                    {contactMethods.map((method, index) => (
+                      <div key={index} className="contact-method">
+                        <span className="contact-label">{method.name}:</span>
+                        <span className="contact-value">{method.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
 
             <div className="tech-stack">
-              {techStack.map((tech, i) => (
-                <span key={i} className="tech-badge">{tech}</span>
-              ))}
+              <span className="tech-label">Tech I work with:</span>
+              <div className="tech-badges">
+                {techStack.map((tech, i) => (
+                  <span key={i} className="tech-badge">{tech}</span>
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Image Section */}
+         
           <div className="hero-image-wrapper">
             <div className="hero-glow-circle1" />
             <div className="hero-glow-circle2" />
-            <div className="hero-image-border">
+            <div className="hero-image-container">
               <img
                 src={profileImg}
                 alt="Kapil Raj KC"
@@ -90,6 +114,7 @@ export default function Hero() {
           <div className="scroll-dot" />
         </div>
         <ChevronDown className="chevron-icon" />
+        <span className="scroll-text">Scroll Down</span>
       </div>
     </section>
   );

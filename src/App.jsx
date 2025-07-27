@@ -1,27 +1,27 @@
-import { Suspense, lazy } from "react"
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-const Home = lazy(() => import('./pages/Home'));
-const AdminLogin = lazy(() => import('./pages/AdminLogin'));
-const AdminLayout = lazy(() => import('./layouts/AdminLayout'));
-const AdminMessages = lazy(() => import('./components/AdminMessages'));
-const AdminProjects = lazy(() => import('./components/AdminProjects'));
-const AddProject = lazy(() => import('./components/AddProject'));
-const EditProject = lazy(() => import('./components/EditProject'));
-import ProtectedRoute from "./components/ProtectedRoute"
-import './App.css';
-import Hero from "./components/Hero";
+import { Suspense, lazy } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 import Loading from "./components/Loading";
+
+const Home = lazy(() => import("./pages/Home"));
+const AdminLogin = lazy(() => import("./pages/AdminLogin"));
+const AdminLayout = lazy(() => import("./layouts/AdminLayout"));
+const AdminMessages = lazy(() => import("./components/AdminMessages"));
+const AdminProjects = lazy(() => import("./components/AdminProjects"));
+const AddProject = lazy(() => import("./components/AddProject"));
+const EditProject = lazy(() => import("./components/EditProject"));
+
+import "./App.css";
 
 function App() {
   return (
     <AuthProvider>
       <Router>
-        <Suspense fallback={<Loading/>}>
+        <Suspense fallback={<Loading />}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/admin/login" element={<AdminLogin />} />
-
             <Route
               path="/admin/dashboard"
               element={
@@ -30,7 +30,6 @@ function App() {
                 </ProtectedRoute>
               }
             >
-              <Route index element={<Hero  />} />
               <Route path="messages" element={<AdminMessages />} />
               <Route path="projects" element={<AdminProjects />} />
               <Route path="projects/add" element={<AddProject />} />
@@ -42,8 +41,5 @@ function App() {
     </AuthProvider>
   );
 }
-
-
-
 
 export default App;
